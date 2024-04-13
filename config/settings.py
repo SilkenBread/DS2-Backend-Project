@@ -46,6 +46,7 @@ THIRD_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'drf_yasg',
     'django.contrib.gis',
+    'simple_history',
 ]
 # Local applications, from the project
 LOCAL_APPS=[
@@ -156,6 +157,8 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+
+AUTH_USER_MODEL = 'user.User'
 
 
 # Static files (CSS, JavaScript, Images)
