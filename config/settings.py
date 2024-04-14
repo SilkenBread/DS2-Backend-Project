@@ -30,7 +30,6 @@ DEBUG = env('DEBUG', default=True)
 
 ALLOWED_HOSTS = ['*']
 
-
 # Application definition
 # Applicactions from Django
 BASE_APPS = [
@@ -52,9 +51,7 @@ THIRD_APPS = [
     'simple_history',
 ]
 # Local applications, from the project
-LOCAL_APPS=[
-    'apps.user'
-]
+LOCAL_APPS = ['apps.user']
 
 INSTALLED_APPS = BASE_APPS + THIRD_APPS + LOCAL_APPS
 
@@ -62,16 +59,17 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
+    'DEFAULT_PERMISSION_CLASSES':
+    ('rest_framework.permissions.IsAuthenticated', ),
     'DEFAULT_PARSER_CLASSES': (
         'rest_framework.parsers.JSONParser',
         'rest_framework.parsers.FormParser',
         'rest_framework.parsers.MultiPartParser',
     ),
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 100
+    'DEFAULT_PAGINATION_CLASS':
+    'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE':
+    100
 }
 
 MIDDLEWARE = [
@@ -102,7 +100,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'config.wsgi.application'
+WSGI_APPLICATION = 'config.wsgi.app'
 
 CORS_ORIGIN_ALLOW_ALL = True
 
@@ -111,11 +109,7 @@ CORS_ORIGIN_WHITELIST = [
     "http://127.0.0.1:3000",
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
-    'http://127.0.0.1:3000'
-]
-
+CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'http://127.0.0.1:3000']
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
@@ -138,19 +132,22 @@ SIMPLE_JWT = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
@@ -165,12 +162,11 @@ USE_TZ = True
 
 AUTH_USER_MODEL = 'user.User'
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT  = os.path.join(BASE_DIR, 'staticfiles/')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
@@ -178,7 +174,7 @@ STATICFILES_DIRS = [
 # Media files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-FILE_UPLOAD_MAX_MEMORY_SIZE = 30 * 4096 * 2160 # 30 Mb limit
+FILE_UPLOAD_MAX_MEMORY_SIZE = 30 * 4096 * 2160  # 30 Mb limit
 
 # Email
 EMAIL_USE_TLS = env('EMAIL_USE_TLS', default=True)
@@ -192,6 +188,6 @@ EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-HOST = env('CSRF_TRUSTED_ORIGINS') ## Host desarrollo
+HOST = env('CSRF_TRUSTED_ORIGINS')  ## Host desarrollo
 DOMAIN = env('CSRF_TRUSTED_ORIGINS')
 CSRF_TRUSTED_ORIGINS = [env('CSRF_TRUSTED_ORIGINS')]
