@@ -36,5 +36,5 @@ services:
 sudo docker-compose run --rm backend-hoze django-admin startproject config .
 ```
 ```bash
-sudo docker-compose run --rm dev_emcaled python manage.py makemigrations
+sudo docker-compose run --rm backend-hoze python manage.py makemigrations
 ```

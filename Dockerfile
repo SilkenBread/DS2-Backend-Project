@@ -1,4 +1,4 @@
-FROM python:3.10
+FROM python:3.9
 # SET TIME ZONE  TO LOCAL TIME
 RUN echo "America/Bogota" > /etc/timezone
 RUN ln -fs /usr/share/zoneinfo/America/Bogota /etc/localtime
