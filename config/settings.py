@@ -28,9 +28,8 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG', default=True)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['.vercel.app']
 
-# Application definition
 # Applicactions from Django
 BASE_APPS = [
     'django.contrib.admin',
@@ -52,6 +51,7 @@ THIRD_APPS = [
 # Local applications, from the project
 LOCAL_APPS = ['apps.user']
 
+# Application definition
 INSTALLED_APPS = BASE_APPS + THIRD_APPS + LOCAL_APPS
 
 REST_FRAMEWORK = {
