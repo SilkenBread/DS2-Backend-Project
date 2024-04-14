@@ -100,14 +100,24 @@ CORS_ORIGIN_WHITELIST = [
 
 CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'http://127.0.0.1:3000']
 
+
+def get_db_config(environ_var='DATABASE_URL'):
+    """Get Database configuration."""
+    options = env.db(var=environ_var, default='sqlite://db.sqlite3')
+    if options.get('ENGINE') != 'django.db.backends.sqlite3':
+        return options
+
+    # This will allow use a relative to the project root DB path
+    # for SQLite like 'sqlite:///db.sqlite3'
+    if not options['NAME'] == ':memory:' and not os.path.isabs(
+            options['NAME']):
+        options.update({'NAME': os.path.join(BASE_DIR, options['NAME'])})
+
+    return options
+
+
 # Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+DATABASES = {'default': get_db_config()}
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
@@ -155,7 +165,7 @@ AUTH_USER_MODEL = 'user.User'
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 
 # Media files
