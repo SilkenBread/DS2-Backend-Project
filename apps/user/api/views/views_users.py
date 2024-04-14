@@ -1,21 +1,20 @@
+# standar libraies
+import uuid
+
 from django.shortcuts import get_object_or_404
+from django.db import transaction
+from django.contrib.auth.models import Group
+
 from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
-from apps.user.api.serializers.serializers_users import UserSerializer, GroupsSerializer
-
-from apps.user.models import User
-from django.contrib.auth.models import Group
 from rest_framework.decorators import action
+
+from apps.user.api.serializers.serializers_users import UserSerializer
+from apps.user.models import User
 from apps.tools.custom_permissions import CustomPermissions
-import uuid
-from django.db import transaction
-"""
-    Funcion "CREATE" del modelo (User), Crea al usuario y le asigna el grupo "Usuario" por defecto.
-
-"""
 
 
-class userViewSet(viewsets.GenericViewSet):
+class UserViewSet(viewsets.GenericViewSet):
     permission_classes = [CustomPermissions]
     serializer_class = UserSerializer
     queryset = None
@@ -114,18 +113,19 @@ class userViewSet(viewsets.GenericViewSet):
                     user.save()
                     user.groups.add(
                         Group.objects.get(id=int(request.data["group"])))
-                    data["msg"] = "Se ha registrado exitosamente el usuario"
+                    data["msg"] = "User has successfully registered"
                     data["status"] = status.HTTP_201_CREATED
                     data["type"] = "success"
                 else:
                     data["data"] = user_serializer.errors
-                    raise ValueError("Ha ocurrido un error en el registro.")
+                    raise ValueError(
+                        "An error has occurred in the registration")
         except Exception as e:
             data.setdefault("msg", str(e))
             data["type"] = "error"
         return Response(data, status=data["status"])
 
-    ## Listar Grupos
+    # Listar Grupos
     @action(detail=False, model=Group, methods=["GET"], url_path="groups")
     def list_groups(self, request):
         return Response(self.model.objects.values('id', 'name'),

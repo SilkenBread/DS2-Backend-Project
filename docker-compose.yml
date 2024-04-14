@@ -1,13 +1,17 @@
-version: '3.5'
+version: '3.8'
+
 services:
-  backend-hoze:
-    build: .
-    container_name: hoze
+  backend-ds2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: backend_ds2_project
+    container_name: backend_ds2_project
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - .:/app
+      - .:/drf_ds2
     ports:
       - "8090:8000"
-
-volumes:
-  media:
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
