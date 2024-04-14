@@ -17,7 +17,6 @@ class GenericFunctions:
     def send_email(self, content_json):
         data = {}
         try:
-            # URL = settings.DOMAIN if not settings.DEBUG else self.request.META['HTTP_HOST']
             mailServer = smtplib.SMTP(settings.EMAIL_HOST, settings.EMAIL_PORT)
             mailServer.starttls()
             mailServer.login(settings.EMAIL_HOST_USER,

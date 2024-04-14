@@ -18,7 +18,14 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG', default=True)
 
-ALLOWED_HOSTS = ['.vercel.app', '.now.sh', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = [
+    '127.0.0.1', 'localhost', 'backdstwoproject-production.up.railway.app',
+    '.vercel.app'
+]
+
+CSRF_TRUSTED_ORIGINS = [env('CSRF_TRUSTED_ORIGINS')]
+
+INTERNAL_IPS = ('127.0.0.1', 'localhost:8000')
 
 # Applicactions from Django
 BASE_APPS = [
@@ -184,7 +191,3 @@ EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-HOST = env('CSRF_TRUSTED_ORIGINS')  ## Host desarrollo
-DOMAIN = env('CSRF_TRUSTED_ORIGINS')
-CSRF_TRUSTED_ORIGINS = [env('CSRF_TRUSTED_ORIGINS')]
