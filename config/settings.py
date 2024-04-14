@@ -19,8 +19,7 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG', default=True)
 
 ALLOWED_HOSTS = [
-    '127.0.0.1', 'localhost', 'backdstwoproject-production.up.railway.app',
-    '.vercel.app'
+    '127.0.0.1', 'localhost', 'backdstwoproject-production.up.railway.app'
 ]
 
 CSRF_TRUSTED_ORIGINS = [env('CSRF_TRUSTED_ORIGINS')]
