@@ -33,8 +33,8 @@ services:
 
 ## Commands
 ```bash
-sudo docker-compose run --rm backend-hoze django-admin startproject config .
+sudo docker-compose run --rm backend-ds2 django-admin startproject config .
 ```
 ```bash
-sudo docker-compose run --rm backend-hoze python manage.py makemigrations
+sudo docker-compose run --rm backend-ds2 python manage.py makemigrations
 ```

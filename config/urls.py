@@ -9,30 +9,31 @@ from django.conf import settings
 from apps.user.api.views.views_login import Login, Logout
 
 schema_view = get_schema_view(
-   openapi.Info(
-      title="Documentacion de API",
-      default_version='v1',
-      description="Documentacion de las rutas del proyecto de grado",
-      terms_of_service="https://www.google.com/policies/terms/",
-      contact=openapi.Contact(email="contact@snippets.local"),
-      license=openapi.License(name="BSD License"),
-   ),
-   public=True,
-   permission_classes=[permissions.AllowAny],
+    openapi.Info(
+        title="Documentacion de API",
+        default_version='v1',
+        description="Documentacion de las rutas del proyecto de grado",
+        terms_of_service="https://www.google.com/policies/terms/",
+        contact=openapi.Contact(email="contact@snippets.local"),
+        license=openapi.License(name="BSD License"),
+    ),
+    public=True,
+    permission_classes=[permissions.AllowAny],
 )
 
 urlpatterns = [
     # Login
-   path('login/', Login.as_view(), name='login'),
+    path('login/', Login.as_view(), name='login'),
     # Logout
-   path('logout/', Logout.as_view(), name='logout'),
+    path('logout/', Logout.as_view(), name='logout'),
     # Admin
-   path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
     # Swagger
-   path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('swagger/',
+         schema_view.with_ui('swagger', cache_timeout=0),
+         name='schema-swagger-ui'),
     # Users
-   path('user/', include('apps.user.api.routers.routers')),
+    path('user/', include('apps.user.api.routers.routers')),
 ]
 
-urlpatterns += static(settings.MEDIA_URL,
-                      document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

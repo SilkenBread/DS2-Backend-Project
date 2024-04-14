@@ -7,10 +7,11 @@ from simple_history.admin import SimpleHistoryAdmin
 from apps.user.models import *
 
 
-
 class UserAdmin(admin.ModelAdmin):
-    search_fields = ('id','username','name','last_name','document','phone_number')
-    list_display = ('id','username','name','last_name','document','phone_number','is_active')
+    search_fields = ('id', 'username', 'name', 'last_name', 'document',
+                     'phone_number')
+    list_display = ('id', 'username', 'name', 'last_name', 'document',
+                    'phone_number', 'is_active')
     list_filter = ['is_active']
 
 
