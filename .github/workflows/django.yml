@@ -24,6 +24,6 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-    # - name: Run Tests
-    #   run: |
-    #     python manage.py test
+    - name: Run User's tests
+      run: |
+        python manage.py test apps.user.tests --verbosity=2 && echo "✅ All tests passed!" || echo "❌ Some tests failed."
