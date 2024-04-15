@@ -63,7 +63,7 @@ class UserViewSet(viewsets.GenericViewSet):
                 status=status.HTTP_400_BAD_REQUEST)
         if user_serializer.is_valid():
             user_serializer.save()
-            return Response({"message": "Usuario actualizado correctamente!"},
+            return Response({"msg": "Usuario actualizado correctamente!"},
                             status=status.HTTP_200_OK)
         return Response(
             {
@@ -86,7 +86,7 @@ class UserViewSet(viewsets.GenericViewSet):
                 status=status.HTTP_400_BAD_REQUEST)
         if user_destroy == 1:
             return Response({"message": "Usuario eliminado correctamente"},
-                            status=status.HTTP_200_OK)
+                            status=status.HTTP_204_NO_CONTENT)
         return Response({"error": "No existe un usuario con estos datos"},
                         status=status.HTTP_404_NOT_FOUND)
 
@@ -99,7 +99,7 @@ class UserViewSet(viewsets.GenericViewSet):
                     "name": "johan",
                     "last_name": "sabogal",
                     "document": 10058375422,
-                    "number_phone": 3146446590,
+                    "phone_number": 3146446590,
                     "group": 1
                 }
         """
