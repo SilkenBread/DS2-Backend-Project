@@ -113,6 +113,7 @@ class UserViewSet(viewsets.GenericViewSet):
                     user.save()
                     user.groups.add(
                         Group.objects.get(id=int(request.data["group"])))
+
                     data["msg"] = "User has successfully registered"
                     data["status"] = status.HTTP_201_CREATED
                     data["type"] = "success"
