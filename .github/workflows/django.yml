@@ -1,8 +1,6 @@
 name: Django CI
 
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
@@ -27,3 +25,16 @@ jobs:
     - name: Run User's tests
       run: |
         python manage.py test apps.user.tests --verbosity=2 && echo "✅ All tests passed!" || echo "❌ Some tests failed."
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Deploy
+        # Only run this step if the branch is main
+        if: github.ref == 'refs/heads/main'
+        env:
+          deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+        run: |
+          curl "$deploy_url"
+    
