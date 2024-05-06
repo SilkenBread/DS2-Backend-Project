@@ -6,14 +6,15 @@ on:
 
 jobs:
   build-and-test:
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Build the Docker image
-      run: docker-compose up --build -d
+      - name: Build the Docker image
+        run: docker-compose up --build -d
 
-    - name: Run tests
-      run: sudo docker-compose run --rm backend-ds2 python manage.py test --verbosity=2 && echo "✅ All tests passed!" || echo "❌ Some tests failed."
+      - name: Run tests
+        run: sudo docker-compose run --rm backend-ds2 python manage.py test --verbosity=2 && echo "✅ All tests passed!" || echo "❌ Some tests failed."
 
   sonarcloud:
     needs: build-and-test
@@ -28,3 +29,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  deploy:
+    needs: sonarcloud
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to production
+        env:
+            deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+        run: |
+          curl "$deploy_url"
