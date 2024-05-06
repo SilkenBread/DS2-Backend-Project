@@ -24,7 +24,6 @@ jobs:
         pip install -r requirements.txt
     - name: Test
       run: |
-        source venv/bin/activate
         python manage.py test --verbosity=2 && echo "✅ All tests passed!" || echo "❌ Some tests failed."
     - name: SonarCloud Scan
       uses: sonarsource/sonarcloud-github-action@master
