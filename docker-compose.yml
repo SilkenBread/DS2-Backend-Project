@@ -11,7 +11,7 @@ services:
     volumes:
       - .:/drf_ds2
     ports:
-      - "8090:8000"
+      - "8080:8000"
     environment:
       - PYTHONUNBUFFERED=1
     restart: unless-stopped
