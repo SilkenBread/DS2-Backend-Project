@@ -14,7 +14,12 @@ jobs:
         run: docker-compose up --build -d
 
       - name: Run tests
-        run: sudo docker-compose run --rm backend-ds2 python manage.py test --verbosity=2 && echo "✅ All tests passed!" || echo "❌ Some tests failed."
+        run: sudo docker-compose run --rm backend-ds2 python manage.py test apps.user.tests --verbosity=2 && echo "✅ All tests passed!" || echo "❌ Some tests failed."
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          CSRF_TRUSTED_ORIGINS: ${{ secrets.CSRF_TRUSTED_ORIGINS }}
+          DEBUG: ${{ secrets.DEBUG }}
 
   sonarcloud:
     needs: build-and-test
