@@ -25,14 +25,17 @@ jobs:
     - name: Test
       run: |
         python manage.py test --verbosity=2 && echo "✅ All tests passed!" || echo "❌ Some tests failed."
-    - name: SonarCloud Scan
-      uses: sonarsource/sonarcloud-github-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-    - name: Deploy
-      env:
-        deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
-      run: |
-        curl "$deploy_url"
+  sonarcloud:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Disabling shallow clone is recommended for improving relevancy of reporting
+          fetch-depth: 0
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
