@@ -1,28 +1,25 @@
 import os, environ
 from datetime import timedelta
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # initialize environment variables
-# env = environ.Env()
-# environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = env('SECRET_KEY')
-SECRET_KEY = 'django-insecure-chncl84i11$_b$e07b6(ir3*t8*b^04jvnbpk2(8s*db#fz0@a'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = env('DEBUG', default=True)
-DEBUG = True
+DEBUG = env('DEBUG', default=True)
 
-ALLOWED_HOSTS = [
-    '127.0.0.1', 'localhost', 'backdstwoproject-production.up.railway.app'
-]
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 # CSRF_TRUSTED_ORIGINS = [env('CSRF_TRUSTED_ORIGINS')]
 
@@ -108,32 +105,14 @@ CORS_ORIGIN_WHITELIST = [
 
 CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'http://127.0.0.1:3000']
 
-# def get_db_config(environ_var='DATABASE_URL'):
-#     """Get Database configuration."""
-#     options = env.db(var=environ_var, default='sqlite://db.sqlite3')
-#     if options.get('ENGINE') != 'django.db.backends.sqlite3':
-#         return options
-
-#     # This will allow use a relative to the project root DB path
-#     # for SQLite like 'sqlite:///db.sqlite3'
-#     if not options['NAME'] == ':memory:' and not os.path.isabs(
-#             options['NAME']):
-#         options.update({'NAME': os.path.join(BASE_DIR, options['NAME'])})
-
-#     return options
-
-# # Database
-# DATABASES = {'default': get_db_config()}
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'ifOpZWMCudOLheXPGGmQgkKiDrgbsTbx',
-        'HOST': 'viaduct.proxy.rlwy.net',
-        'PORT': '34268'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+DATABASES["default"] = dj_database_url.parse(env('DATABASE_URL'))
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
@@ -190,11 +169,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 FILE_UPLOAD_MAX_MEMORY_SIZE = 30 * 4096 * 2160  # 30 Mb limit
 
 # Email
-# EMAIL_USE_TLS = env('EMAIL_USE_TLS', default=True)
-# EMAIL_HOST = env('EMAIL_HOST')
-# EMAIL_PORT = env('EMAIL_PORT')
-# EMAIL_HOST_USER = env('EMAIL_HOST_USER')
-# EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = env('EMAIL_USE_TLS', default=True)
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_PORT = env('EMAIL_PORT')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
