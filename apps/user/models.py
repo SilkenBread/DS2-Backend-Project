@@ -68,7 +68,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     phone_number = models.PositiveBigIntegerField('Phone number',
                                                   blank=True,
                                                   null=True)
-    is_active = models.BooleanField('State', default=False)
+    is_active = models.BooleanField('State', default=True)
     is_staff = models.BooleanField(default=False)
 
     historical = HistoricalRecords()
