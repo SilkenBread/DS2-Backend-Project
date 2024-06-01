@@ -74,6 +74,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -184,3 +185,7 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 30 * 4096 * 2160  # 30 Mb limit
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+HOST = env('CSRF_TRUSTED_ORIGINS')  ## Host desarrollo
+DOMAIN = env('CSRF_TRUSTED_ORIGINS')
+CSRF_TRUSTED_ORIGINS = [env('CSRF_TRUSTED_ORIGINS')]
