@@ -24,6 +24,11 @@ jobs:
       - name: Run Tests
         run: |
           python manage.py test --verbosity=2 && echo "✅ All tests passed!" || echo "❌ Some tests failed."
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          DEBUG: ${{ secrets.DEBUG }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          CSRF_TRUSTED_ORIGINS: ${{ secrets.CSRF_TRUSTED_ORIGINS }}
 
   sonarcloud:
     needs: build-and-test
