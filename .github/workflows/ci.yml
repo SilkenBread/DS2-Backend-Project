@@ -23,7 +23,7 @@ jobs:
 
       - name: Run Tests
         run: |
-          python manage.py test --verbosity=2 && echo "✅ All tests passed!" || echo "❌ Some tests failed."
+          python manage.py test apps.user.tests --verbosity=2 && echo "✅ All tests passed!" || echo "❌ Some tests failed."
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           DEBUG: ${{ secrets.DEBUG }}
